@@ -5,40 +5,27 @@ import './TodoToggleAll.scss';
 
 export default class TodoToggleAll extends Component {
   static propTypes = {
-    defaultValue: PropTypes.bool,
-    value: PropTypes.bool,
+    checked: PropTypes.bool,
     onChange: PropTypes.func,
   }
 
   static defaultProps = {
-    value: false,
-    defaultValue: false,
+    checked: false,
     onChange: () => {},
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: props.value || props.defaultValue,
-    };
-  }
-
   onChange = (event) => {
-    let targetValue = event.target.value;
-    this.setState({
-      value: targetValue,
-    });
+    let targetValue = event.target.checked;
     this.props.onChange(targetValue);
   }
 
   render() {
-    let { value } = this.state;
-
+    let { checked } = this.props;
     return (
       <input
         className="todo-toggle-all"
         type="checkbox"
-        checked={value}
+        checked={checked}
         onChange={this.onChange}
       />
     );
