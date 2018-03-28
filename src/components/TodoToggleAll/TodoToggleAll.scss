@@ -1,0 +1,27 @@
+.todo-toggle-all{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-left: 16px;
+  padding-top: 16px;
+  text-align: center;
+  border: none;
+  background: none;
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  &:checked{
+    &::before{
+      border-color: #5DC2A4;
+    }
+  }
+  &::before{
+   content: " ";
+   display: inline-block;
+   height: 12px;
+   width: 12px;
+   border-right: 3px solid #ddd;
+   border-bottom: 3px solid #ddd;
+   transform: rotate(45deg);
+  }
+}

@@ -1,0 +1,22 @@
+.todo-filter-item{
+  display: inline-block;
+
+  &.selected{
+    a{
+      border-color: rgba(175, 47, 47, 0.2);
+    }
+  }
+
+  a{
+    margin: 3px;
+    padding: 3px 7px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:hover{
+      border-color: rgba(175, 47, 47, 0.1);
+    }
+  }
+}
