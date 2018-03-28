@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 
-import TodoInput from '../components/TodoInput';
-import TodoStore from '../store/TodoStore';
-import TodoActions from '../actions/TodoActions';
+import TodoInput from '../../components/TodoInput';
+import TodoStore from '../../store/TodoStore';
+import TodoActions from '../../actions/TodoActions';
 
 class TodoInputContainer extends Component {
   static getStores() {

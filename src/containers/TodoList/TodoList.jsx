@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 
-import TodoList from '../components/TodoList';
-import TodoStore from '../store/TodoStore';
+import TodoList from '../../components/TodoList';
+import TodoStore from '../../store/TodoStore';
 
 class VisibleTodoList extends Component {
   static getStores() {
