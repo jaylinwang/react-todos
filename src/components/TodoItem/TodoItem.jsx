@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import './TodoItem.scss';
 
 class TodoItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      completed: false,
-    };
+  static propTypes = {
+    onChange: PropTypes.func,
+    onDelete: PropTypes.func,
   }
 
-  onChange = (event) => {
-    this.setState({
-      completed: event.target.checked,
+  static defaultProps = {
+    onChange: () => {},
+    onDelete: () => {},
+  }
+
+  onChange = () => {
+    let { id, title, completed } = this.props;
+    this.props.onChange(id, {
+      title,
+      completed: !completed,
     });
   }
 
+  onDelete = () => {
+    let { id } = this.props;
+    this.props.onDelete(id);
+  }
+
   render() {
-    const { completed } = this.state;
+    const { title, completed } = this.props;
 
     return (
       <li
@@ -25,7 +37,6 @@ class TodoItem extends Component {
           'todo-item': true,
           completed,
         })}
-        onClick={this.handleTodoClick}
       >
         <div className="view">
           <input
@@ -34,8 +45,11 @@ class TodoItem extends Component {
             checked={completed}
             onChange={this.onChange}
           />
-          <label>123</label>
-          <button className="destory" />
+          <label>{ title }</label>
+          <button
+            className="destory"
+            onClick={this.onDelete}
+          />
         </div>
       </li>
     );
