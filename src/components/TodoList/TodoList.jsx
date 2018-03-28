@@ -10,12 +10,17 @@ class TodoList extends Component {
   }
 
   render() {
+    let { list } = this.props;
     return (
       <ul className="todo-list">
-        <TodoItem completed />
-        <TodoItem />
-        <TodoItem />
-        <TodoItem />
+        {
+          list.map(item => (
+            <TodoItem
+              key={item.id}
+              {...item}
+            />
+          ))
+        }
       </ul>
     );
   }

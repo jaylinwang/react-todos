@@ -34,7 +34,7 @@ class TodoItem extends Component {
             checked={completed}
             onChange={this.onChange}
           />
-          <label>123</label>
+          <label>{  }</label>
           <button className="destory" />
         </div>
       </li>

@@ -27,9 +27,9 @@ export default class TodoInput extends Component {
 
   onKeyUp = (event) => {
     if (event.keyCode === 13) {
-      this.props.onEnter({
-        title: this.state.value,
-        completed: false,
+      this.props.onEnter(this.state.value);
+      this.setState({
+        value: '',
       });
     }
   }

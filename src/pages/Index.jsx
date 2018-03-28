@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import TodoInput from '../components/TodoInput';
-import TodoList from '../components/TodoList';
+import TodoInput from '../containers/TodoInputContainer';
+import TodoList from '../containers/TodoListContainer';
 import TodoToggleAll from '../components/TodoToggleAll';
 import TodoFilter from '../components/TodoFilter';
 
