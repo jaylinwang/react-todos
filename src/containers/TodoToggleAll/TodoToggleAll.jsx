@@ -1,32 +1,28 @@
 import React, { Component } from 'react';
-import { Container } from 'flux/utils';
+import { connect } from 'react-redux';
 
 import TodoToggleAll from '../../components/TodoToggleAll';
-import TodoStore from '../../store/TodoStore';
 import TodoActions from '../../actions/TodoActions';
 
 class TodoToggleAllContainer extends Component {
-  static getStores() {
-    return [
-      TodoStore,
-    ];
-  }
-  static calculateState() {
-    let todos = TodoStore.getState();
-    return {
-      allCompleted: todos.length > 0 && todos.filter(item => item.completed).length === todos.length,
-    };
-  }
-
   onChange = (toCompleted) => {
-    TodoActions.toggleAll(toCompleted);
+    let { dispatch } = this.props;
+
+    dispatch(TodoActions.toggleAll(toCompleted));
   }
 
   render() {
+    let { allCompleted } = this.props;
+
     return (
-      <TodoToggleAll checked={this.state.allCompleted} onChange={this.onChange} />
+      <TodoToggleAll checked={allCompleted} onChange={this.onChange} />
     );
   }
 }
 
-export default Container.create(TodoToggleAllContainer);
+export default connect((state) => {
+  let todos = state.todoList;
+  return {
+    allCompleted: todos.length > 0 && todos.filter(item => item.completed).length === todos.length,
+  };
+})(TodoToggleAllContainer);

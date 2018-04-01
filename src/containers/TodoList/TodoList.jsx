@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import { Container } from 'flux/utils';
+import { connect } from 'react-redux';
 
 import TodoList from '../../components/TodoList';
-import TodoStore from '../../store/TodoStore';
-import FilterStore from '../../store/FilterStore';
 import TodoActions from '../../actions/TodoActions';
 
 class TodoListContainer extends Component {
-  static getStores() {
-    return [
-      TodoStore,
-      FilterStore,
-    ];
+  onItemChange = (id, todo) => {
+    let { dispatch } = this.props;
+    dispatch(TodoActions.updateTodo(id, todo));
   }
 
-  static calculateState() {
-    let todos = TodoStore.getState();
-    let filter = FilterStore.getState();
+  onItemDelete = (id) => {
+    let { dispatch } = this.props;
+    dispatch(TodoActions.deleteTodo(id));
+  }
+
+  render() {
+    let { todos, filter } = this.props;
     let visibleTodos = todos;
     if (filter === 'active') {
       visibleTodos = todos.filter(item => !item.completed);
@@ -24,30 +24,20 @@ class TodoListContainer extends Component {
     if (filter === 'completed') {
       visibleTodos = todos.filter(item => item.completed);
     }
-
-    return {
-      todos: visibleTodos,
-    };
-  }
-
-  onItemChange = (id, todo) => {
-    TodoActions.updateTodo(id, todo);
-  }
-
-  onItemDelete = (id) => {
-    TodoActions.deleteTodo(id);
-  }
-
-  render() {
     return (
       <TodoList
         onItemDelete={this.onItemDelete}
         onItemChange={this.onItemChange}
-        list={this.state.todos}
+        list={visibleTodos}
       />
     );
   }
 }
 
 
-export default Container.create(TodoListContainer);
+export default connect((state) => {
+  return {
+    todos: state.todoList,
+    filter: state.filterStatus,
+  };
+})(TodoListContainer);

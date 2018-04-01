@@ -1,40 +1,28 @@
 import React, { Component } from 'react';
-import { Container } from 'flux/utils';
+import { connect } from 'react-redux';
 
 import TodoFooter from '../../components/TodoFooter';
-import TodoStore from '../../store/TodoStore';
-import FilterStore from '../../store/FilterStore';
 import TodoActions from '../../actions/TodoActions';
 
 class TodoFooterContainer extends Component {
-  static getStores() {
-    return [
-      TodoStore,
-      FilterStore,
-    ];
-  }
-
-  static calculateState() {
-    return {
-      completedCount: TodoStore.getState().filter(item => item.completed).length,
-      filterStatus: FilterStore.getState(),
-    };
-  }
-
   onClearCompleted = () => {
-    TodoActions.clearCompletedTodo();
+    let { dispatch } = this.props;
+    dispatch(TodoActions.clearCompletedTodo());
   }
 
   onFilterChange = (value) => {
-    TodoActions.changeFilter(value);
+    let { dispatch } = this.props;
+    dispatch(TodoActions.changeFilter(value));
   }
 
 
   render() {
+    let { completedCount, filter } = this.props;
+
     return (
       <TodoFooter
-        completedCount={this.state.completedCount}
-        filterStatus={this.state.filterStatus}
+        completedCount={completedCount}
+        filterStatus={filter}
         onClearCompleted={this.onClearCompleted}
         onFilterChange={this.onFilterChange}
       />
@@ -43,4 +31,9 @@ class TodoFooterContainer extends Component {
 }
 
 
-export default Container.create(TodoFooterContainer);
+export default connect((state) => {
+  return {
+    completedCount: state.todoList.filter(item => item.completed).length,
+    filter: state.filterStatus,
+  };
+})(TodoFooterContainer);

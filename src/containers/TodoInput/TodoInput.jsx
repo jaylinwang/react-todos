@@ -1,25 +1,14 @@
 import React, { Component } from 'react';
-import { Container } from 'flux/utils';
+import { connect } from 'react-redux';
 
 import TodoInput from '../../components/TodoInput';
-import TodoStore from '../../store/TodoStore';
 import TodoActions from '../../actions/TodoActions';
 
 class TodoInputContainer extends Component {
-  static getStores() {
-    return [
-      TodoStore,
-    ];
-  }
-
-  static calculateState() {
-    return {
-      todos: TodoStore.getState(),
-    };
-  }
 
   onEnter = (title) => {
-    TodoActions.addTodo(title);
+    let { dispatch } = this.props;
+    dispatch(TodoActions.addTodo(title));
   }
 
   render() {
@@ -27,5 +16,4 @@ class TodoInputContainer extends Component {
   }
 }
 
-
-export default Container.create(TodoInputContainer);
+export default connect()(TodoInputContainer);
