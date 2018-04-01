@@ -1,9 +1,9 @@
 {
-  "name": "react-todolist-step",
+  "name": "react-todos",
   "version": "1.0.0",
-  "description": "react todolist demo，hop practice react step by step",
+  "description": "react todos",
   "main": "index.js",
-  "repository": "https://github.com/jaylinwang/react-todolist-step.git",
+  "repository": "https://github.com/jaylinwang/react-todos.git",
   "author": "jaylinwang",
   "license": "MIT",
   "scripts": {
