@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import TodoInput from '../containers/TodoInput';
 import TodoList from '../containers/TodoList';
 import TodoFooter from '../containers/TodoFooter';
-import TodoToggleAll from '../components/TodoToggleAll';
+import TodoToggleAll from '../containers/TodoToggleAll';
 
 import './Index.scss';
 

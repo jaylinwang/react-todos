@@ -5,7 +5,6 @@ import ActionTypes from '../constants/ActionTypes';
 class FilterStore extends ReduceStore {
   constructor() {
     super(TodoDispatcher);
-    this.id = 0;
   }
 
   getInitialState() {
@@ -14,8 +13,8 @@ class FilterStore extends ReduceStore {
 
   reduce(state, action) {
     if (action.type === ActionTypes.CHANGE_FILTER) {
-      let { status } = action;
-      return status;
+      let { filter } = action.payload;
+      return filter;
     }
     return state;
   }

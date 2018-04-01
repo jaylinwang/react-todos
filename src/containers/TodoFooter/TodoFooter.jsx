@@ -4,8 +4,9 @@ import { Container } from 'flux/utils';
 import TodoFooter from '../../components/TodoFooter';
 import TodoStore from '../../store/TodoStore';
 import FilterStore from '../../store/FilterStore';
+import TodoActions from '../../actions/TodoActions';
 
-class VisibleTodoList extends Component {
+class TodoFooterContainer extends Component {
   static getStores() {
     return [
       TodoStore,
@@ -15,22 +16,25 @@ class VisibleTodoList extends Component {
 
   static calculateState() {
     return {
-      todos: TodoStore.getState(),
+      completedCount: TodoStore.getState().filter(item => item.completed).length,
+      filterStatus: FilterStore.getState(),
     };
   }
 
-  onClearCompleted = (value) => {
-
+  onClearCompleted = () => {
+    TodoActions.clearCompletedTodo();
   }
 
   onFilterChange = (value) => {
-
+    TodoActions.changeFilter(value);
   }
 
 
   render() {
     return (
       <TodoFooter
+        completedCount={this.state.completedCount}
+        filterStatus={this.state.filterStatus}
         onClearCompleted={this.onClearCompleted}
         onFilterChange={this.onFilterChange}
       />
@@ -39,4 +43,4 @@ class VisibleTodoList extends Component {
 }
 
 
-export default Container.create(VisibleTodoList);
+export default Container.create(TodoFooterContainer);

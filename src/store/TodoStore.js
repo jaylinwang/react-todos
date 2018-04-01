@@ -19,12 +19,44 @@ class TodoStore extends ReduceStore {
 
   reduce(state, action) {
     if (action.type === ActionTypes.ADD_TODO) {
-      let { title } = action;
+      let { title } = action.payload;
       return [...state, {
         id: this.getId(),
         title,
         completed: false,
       }];
+    }
+    if (action.type === ActionTypes.DELETE_TODO) {
+      let { id } = action.payload;
+      return state.filter(item => item.id !== id);
+    }
+    if (action.type === ActionTypes.UPDATE_TODO) {
+      let { id, todo } = action.payload;
+      return [...state].map((item) => {
+        if (item.id === id) {
+          item = Object.assign(item, todo);
+        }
+        return item;
+      });
+    }
+    if (action.type === ActionTypes.CLEAT_COMPLETED) {
+      return state.filter(item => !item.completed);
+    }
+    if (action.type === ActionTypes.TOGLLE_ALL) {
+      let { toCompleted } = action.payload;
+      let list = [...state];
+      if (toCompleted) {
+        list.map((item) => {
+          item.completed = true;
+          return item;
+        });
+      } else {
+        list.map((item) => {
+          item.completed = false;
+          return item;
+        });
+      }
+      return list;
     }
     return state;
   }
