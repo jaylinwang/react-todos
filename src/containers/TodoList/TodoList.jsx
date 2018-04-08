@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import TodoList from '../../components/TodoList';
 import TodoActions from '../../actions/TodoActions';
-import { visibleTodoList } from '../../selectors'
+import { visibleTodoList } from '../../selectors';
 
 class TodoListContainer extends Component {
   onItemChange = (id, todo) => {
