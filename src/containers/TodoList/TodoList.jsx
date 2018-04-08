@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import TodoList from '../../components/TodoList';
 import TodoActions from '../../actions/TodoActions';
+import { visibleTodoList } from '../../selectors'
 
 class TodoListContainer extends Component {
   onItemChange = (id, todo) => {
@@ -16,19 +17,11 @@ class TodoListContainer extends Component {
   }
 
   render() {
-    let { todos, filter } = this.props;
-    let visibleTodos = todos;
-    if (filter === 'active') {
-      visibleTodos = todos.filter(item => !item.completed);
-    }
-    if (filter === 'completed') {
-      visibleTodos = todos.filter(item => item.completed);
-    }
     return (
       <TodoList
         onItemDelete={this.onItemDelete}
         onItemChange={this.onItemChange}
-        list={visibleTodos}
+        list={this.props.todos}
       />
     );
   }
@@ -37,7 +30,7 @@ class TodoListContainer extends Component {
 
 export default connect((state) => {
   return {
-    todos: state.todoList,
+    todos: visibleTodoList(state),
     filter: state.filterStatus,
   };
 })(TodoListContainer);
